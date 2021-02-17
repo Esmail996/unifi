@@ -39,14 +39,12 @@ module.exports = {
       res.send(err.message);
     }
   },
-  // get All todo list
-  getAll: async (req, res) => {
+  //get todo by id
+  getById: async (req, res) => {
     try {
-      const { query } = req;
-      const userId = query.userId;
-      const offset = query.offset || 0;
-      const limit = query.limit || 50;
-      const result = await service.getAll(query);
+      const { id } = req.params;
+      const { userId } = req.query;
+      const result = await service.getById(id, userId);
       res.status(200).send(result);
     } catch (err) {
       console.log(err);

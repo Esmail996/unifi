@@ -26,21 +26,19 @@ module.exports = {
   //delete
   delete: async (id, userId) => {
     await sequelize.transaction(async (transaction) => {
-      await Promise.all([
-        //check permission to category
-        db.Todo.checkUser(id, userId),
+      const [rows] = await Promise.all([
         //delete
         db.Todo.destroy({ where: { id }, transaction }),
+        //check permission to category
+        db.Todo.checkUser(id, userId),
       ]);
     });
   },
 
-  getAll: async (query) => {
-    const { count, rows } = await db.Todo.findAndCountAll({
-      where: { userId: Number(query.userId) },
-      offset: Number(query.offset),
-      limit: Number(query.limit),
-    });
-    return { totalCount: count, data: rows };
+  //get specific todo item for user
+  getById: async (id, userId) => {
+    const todo = await db.Todo.findOne({ where: { id, userId } });
+    if (!todo) return "not found";
+    return todo;
   },
 };

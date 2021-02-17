@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
         attributes: ["id"],
         where: { id, userId },
       });
-      if (!todo) throw new Exception(404, "Not Found");
+      if (!todo) return "Not Found";
     }
   }
 

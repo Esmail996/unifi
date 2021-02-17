@@ -18,7 +18,7 @@ module.exports = {
       name: user.name,
     };
   },
-
+  // login user
   login: async ({ email, password }) => {
     let user = await db.User.findOne({ where: { email: email } });
     if (!user) res.status(401);

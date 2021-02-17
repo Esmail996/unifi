@@ -3,7 +3,7 @@ const db = sequelize.models;
 
 module.exports = {
   // create post
-  // to got the user id from the query practice we should get it from JWT or cookie but this is just for speed up a little :)
+  // to got the userId from the query is a bad practice we should get it from JWT or cookie but this is just for speed up a little :)
   create: async (body, userId) => {
     const query = {
       title: body.title,

@@ -1,3 +1,5 @@
-const db = require("./models");
+//const db = require("./models");
 
-module.exports = db;
+const mongoose = require("mongoose");
+
+module.exports = mongoose;

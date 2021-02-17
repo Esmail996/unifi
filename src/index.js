@@ -1,10 +1,23 @@
 const express = require("express");
-const sequelize = require("./db");
+const mongoose = require("./db");
 
 const start = async () => {
+  // // Db connection
+  // await sequelize.authenticate();
+  // //await sequelize.sync({ sync: true, force: true });
+
   // Db connection
-  await sequelize.authenticate();
-  //await sequelize.sync({ sync: true, force: true });
+  await mongoose.connect(
+    "mongodb://localhost:27017/myDB",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    },
+    () => console.log(`connection to database established`)
+  );
+
   const router = require("./app/router");
 
   ///

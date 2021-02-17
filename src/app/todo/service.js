@@ -1,26 +1,27 @@
 const sequelize = require("../../db");
 const db = sequelize.models;
+const Todo = require("../../db/models/todo-mongo");
 
 module.exports = {
   // create post
-  // to got the userId from the query is a bad practice we should get it from JWT or cookie but this is just for speed up a little :)
   create: async (body, user) => {
-    const query = {
+    const todo = {
       title: body.title,
       description: body.description,
       userId: user.id,
     };
-    const todo = await db.Todo.create(query);
-
-    return { id: todo.id };
+    const savedTodo = await Todo.save();
+    // const todo = await db.Todo.create(query);
+    return savedTodo;
   },
 
   // update
   update: async (id, body, user) => {
-    const todo = await db.Todo.update(body, {
-      where: { id, userId: user.id },
-    });
-    return { id: id };
+    // const todo = await db.Todo.update(body, {
+    //   where: { id, userId: user.id },
+    // });
+    // return { id: id };
+    const todo = Todo.updateOne({ _id: id, userId: user }, { body });
   },
 
   //delete

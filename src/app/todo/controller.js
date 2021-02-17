@@ -1,7 +1,6 @@
 const service = require("./service");
 
 module.exports = {
-  //MM-8
   create: async (req, res) => {
     try {
       const { body, user } = req;
@@ -53,7 +52,6 @@ module.exports = {
   getAll: async (req, res) => {
     try {
       const { query, user } = req;
-      const userId = query.userId;
       const offset = query.offset || 0;
       const limit = query.limit || 50;
       const result = await service.getAll(user, query);

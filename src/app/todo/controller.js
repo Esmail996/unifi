@@ -4,9 +4,8 @@ module.exports = {
   //MM-8
   create: async (req, res) => {
     try {
-      const { body } = req;
-      const { userId } = req.query;
-      const result = await service.create(body, userId);
+      const { body, user } = req;
+      const result = await service.create(body, user);
       res.status(201).send(result);
     } catch (err) {
       res.send(err.message);
@@ -16,10 +15,9 @@ module.exports = {
   //update
   update: async (req, res) => {
     try {
-      const { body } = req;
-      const { userId } = req.query;
+      const { body, user } = req;
       const { id } = req.params;
-      const result = await service.update(id, body, userId);
+      const result = await service.update(id, body, user);
       res.status(200).send(result);
     } catch (err) {
       console.log(err);
@@ -31,8 +29,8 @@ module.exports = {
   delete: async (req, res) => {
     try {
       const { id } = req.params;
-      const { userId } = req.query;
-      const result = await service.delete(id, userId);
+      const { user } = req;
+      const result = await service.delete(id, user);
       res.status(204).send(result);
     } catch (err) {
       console.log(err);
@@ -43,8 +41,8 @@ module.exports = {
   getById: async (req, res) => {
     try {
       const { id } = req.params;
-      const { userId } = req.query;
-      const result = await service.getById(id, userId);
+      const { user } = req;
+      const result = await service.getById(id, user);
       res.status(200).send(result);
     } catch (err) {
       console.log(err);
@@ -54,11 +52,11 @@ module.exports = {
   // get All todo list
   getAll: async (req, res) => {
     try {
-      const { query } = req;
+      const { query, user } = req;
       const userId = query.userId;
       const offset = query.offset || 0;
       const limit = query.limit || 50;
-      const result = await service.getAll(query);
+      const result = await service.getAll(user, query);
       res.status(200).send(result);
     } catch (err) {
       console.log(err);

@@ -51,4 +51,18 @@ module.exports = {
       res.send(err.message);
     }
   },
+  // get All todo list
+  getAll: async (req, res) => {
+    try {
+      const { query } = req;
+      const userId = query.userId;
+      const offset = query.offset || 0;
+      const limit = query.limit || 50;
+      const result = await service.getAll(query);
+      res.status(200).send(result);
+    } catch (err) {
+      console.log(err);
+      res.send(err.message);
+    }
+  },
 };

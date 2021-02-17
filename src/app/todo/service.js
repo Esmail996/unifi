@@ -41,4 +41,14 @@ module.exports = {
     if (!todo) return "not found";
     return todo;
   },
+
+  //get all to do list for some user
+  getAll: async (query) => {
+    const { count, rows } = await db.Todo.findAndCountAll({
+      where: { userId: Number(query.userId) },
+      offset: Number(query.offset),
+      limit: Number(query.limit),
+    });
+    return { totalCount: count, data: rows };
+  },
 };
